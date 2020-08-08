@@ -5,7 +5,7 @@ from os import path
 from setuptools import setup
 
 packages = [
-    'pandas-appender',
+    'pandas_appender',
 ]
 
 test_requirements = ['pytest>=4.6', 'coverage', 'pytest-cov', 'pytest-sugar', 'coveralls', 'numpy']
@@ -28,7 +28,7 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
     description = f.read()
 
 setup(
-    name='pandas-appender',
+    name='pandas_appender',
     use_scm_version=True,
     description='A helper class that makes appending to a Pandas DataFrame efficient',
     long_description=description,
