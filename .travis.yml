@@ -20,13 +20,13 @@ matrix:
   - python: 3.8
     arch: s390x
   include:
-  - python: 3.8
-    arch: arm64
-  - python: 3.9-dev  # very slow
-    install:
-    - pip install cython  # needed for pandas
-    - pip install .
-    - pip install .[test]
+#  - python: 3.8  # very slow, 38 minutes to pass
+#    arch: arm64
+#  - python: 3.9-dev  # very slow, 13 minutes to fail
+#    install:
+#    - pip install cython  # needed for pandas? pandas still gets a compile-time error
+#    - pip install .
+#    - pip install .[test]
 #  - python: 3.8
 #    arch: s390x
 
