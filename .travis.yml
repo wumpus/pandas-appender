@@ -7,8 +7,8 @@ python:
   - 3.6
   - 3.7
   - 3.8
-  - 3.9-dev
-  - nightly
+#  - 3.9-dev
+#  - nightly
 
 matrix:
   fast_finish: true
@@ -22,6 +22,11 @@ matrix:
   include:
   - python: 3.8
     arch: arm64
+  - python: 3.9-dev  # very slow
+    install:
+    - pip install cython  # needed for pandas
+    - pip install .
+    - pip install .[test]
 #  - python: 3.8
 #    arch: s390x
 
