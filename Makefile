@@ -4,7 +4,7 @@ clean_coverage:
 	rm -f .coverage
 
 test_coverage: clean_coverage
-	PYTHONPATH=. pytest --cov-report= --cov-append --cov pandas_appender -v -v test/
+	PYTHONPATH=. pytest --cov-report= --cov-append --cov-branch --cov pandas_appender -v -v test/
 
 distclean:
 	rm -rf dist/
