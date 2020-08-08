@@ -10,10 +10,11 @@ rows per cpu-second, and has modest additional memory usage.
 
 ## Install
 
-pip install pandas-appender
+`pip install pandas-appender`
 
 ## Usage
 
+```
 from pandas_appender import PDF_Appender
 
 pdfa = PDF_appender(ignore_index=True)
@@ -21,6 +22,7 @@ for i in range(1_000_000):
     pdfa.append({'i': i})
 
 df = pdfa.finalize()
+```
 
 ## TODO
 
