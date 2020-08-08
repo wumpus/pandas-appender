@@ -64,7 +64,7 @@ def test_preexist():
 
 
 def test_stress():
-    a = 1_000_000  # around 1 second for 1 million
+    a = 1000000  # around 1 second for 1 million
     pdfa = PDF_Appender(ignore_index=True)
     for aa in range(a):
         pdfa.append({'a': aa})
