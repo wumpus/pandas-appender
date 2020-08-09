@@ -57,7 +57,7 @@ def test_preexist():
     starting_df = pd.DataFrame([{'a': a} for a in range(10)])
     pdfa = PDF_Appender(starting_df, ignore_index=True)
     for aa in range(10, 20):
-        pdfa.append({'a': aa})
+        pdfa = pdfa.append({'a': aa})  # also testing return value of .append()
     df = pdfa.finalize()
     assert len(df) == 20
     assert np.array_equal(df['a'].values, np.array(range(20)))

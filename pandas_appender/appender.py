@@ -19,6 +19,7 @@ class PDF_Appender(object):
         self._small.append(other)
         if len(self._small) > self._chunksize:
             self._merge_small()
+        return self  # mimic pd.DataFrame.append return value
 
     def finalize(self):
         self._merge_small()
