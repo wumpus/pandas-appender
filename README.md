@@ -19,9 +19,9 @@ rows per cpu-second, and has modest additional memory usage.
 ```
 from pandas_appender import PDF_Appender
 
-pdfa = PDF_appender(ignore_index=True)
+pdfa = PDF_appender(ignore_index=True)  # note that ignore_index moves to the init
 for i in range(1_000_000):
-    pdfa.append({'i': i})
+    pdfa = pdfa.append({'i': i})
 
 df = pdfa.finalize()
 ```
