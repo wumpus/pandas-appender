@@ -15,7 +15,10 @@ class PDF_Appender(object):
             if key not in {'ignore_index', 'verify_integrity', 'sort'}:
                 raise ValueError('unexpected kwarg '+key)
 
-    def append(self, other):
+    def append(self, other, **kwargs):
+        if kwargs:
+            raise ValueError('unexpected keyword, should you move it to init()? '+repr(kwargs))
+
         self._small.append(other)
         if len(self._small) > self._chunksize:
             self._merge_small()

@@ -76,3 +76,6 @@ def test_stress():
 def test_errors():
     with pytest.raises(ValueError):
         pdfa = PDF_Appender(asdf=True)
+    pdfa = PDF_Appender()
+    with pytest.raises(ValueError):
+        pdfa.append({'a': 1}, ignore_index=True)
