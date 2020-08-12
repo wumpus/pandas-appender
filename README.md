@@ -17,13 +17,13 @@ rows per cpu-second, and has modest additional memory usage.
 ## Usage
 
 ```
-from pandas_appender import PDF_Appender
+from pandas_appender import DF_Appender
 
-pdfa = PDF_appender(ignore_index=True)  # note that ignore_index moves to the init
+dfa = DF_appender(ignore_index=True)  # note that ignore_index moves to the init
 for i in range(1_000_000):
-    pdfa = pdfa.append({'i': i})
+    dfa = dfa.append({'i': i})
 
-df = pdfa.finalize()
+df = dfa.finalize()
 ```
 
 ## Type hints and category detection
@@ -33,23 +33,23 @@ DataFrame. There are two ways to do this in pandas-appender. One is to
 append to an existing dataframe:
 
 ```
-pdfa = PDF_appender(df, ignore_index=True)
+dfa = DF_appender(df, ignore_index=True)
 ```
 
 and the second is to pass in a `dtypes=` argument:
 
 ```
-pdfa = PDF_appender(ignore_index=True, dtypes=another_dataframe.dtypes)
+dfa = DF_appender(ignore_index=True, dtypes=another_dataframe.dtypes)
 ```
 
 pandas-appender also offers a way to infer which columns would be smaller
 if they were categories. This code will either analyze an existing dataframe
 that you're appending to:
 ```
-pdfa = PDF_appender(df, ignore_index=True, infer_categories=True)
+dfa = DF_appender(df, ignore_index=True, infer_categories=True)
 ```
 or it will analyze the first chunk of appended lines:
 ```
-pdfa = PDF_appender(ignore_index=True, infer_categories=True)
+dfa = DF_appender(ignore_index=True, infer_categories=True)
 ```
 These inferred categories will override existing types or a `dtypes=` argument.

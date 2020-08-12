@@ -1,18 +1,18 @@
 from functools import partial
 import timeit
 
-from pandas_appender import PDF_Appender
+from pandas_appender import DF_Appender
 
 
 def do_one(total, chunksize, middles):
     #dtypes = None
     #dtypes = {'a': 'int64', 'b': 'int64', 'c': 'int64', 'd': 'int64', 'e': 'int64', 'f': 'int64'}
     dtypes = {'a': 'float64', 'b': 'float64', 'c': 'float64', 'd': 'float64', 'e': 'float64', 'f': 'float64'}
-    pdfa = PDF_Appender(chunksize=chunksize, middles=middles, dtypes=dtypes, ignore_index=True, EARLY=True)
+    dfa = DF_Appender(chunksize=chunksize, middles=middles, dtypes=dtypes, ignore_index=True, EARLY=True)
     for a in range(total):
-        #pdfa.append({'a': a})
-        pdfa.append({'a': a, 'b': a, 'c': a, 'd': a, 'e': a, 'f': a})
-    df = pdfa.finalize()
+        #dfa.append({'a': a})
+        dfa.append({'a': a, 'b': a, 'c': a, 'd': a, 'e': a, 'f': a})
+    df = dfa.finalize()
     print(df.dtypes)
     print(len(df))
     assert len(df) == total
