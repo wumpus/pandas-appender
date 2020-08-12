@@ -61,7 +61,7 @@ These inferred categories will override existing types or a `dtypes=` argument.
 * Pandas: `df_new = df.append()  # df is not changed`
 * DF_Appender: `dfa_new = dfa.append  # modifies dfa, and dfa_new == dfa`
 
-### pandas.DataFrame.append will promote types, whle DF_Appender is strict 
+### pandas.DataFrame.append will promote types, while DF_Appender is strict 
 
 * Pandas: append `0.1` to previously integer column, it will be promoted to float
 * DF_Appender: when initialized with `dtypes=` or an existing DataFrame, appending
