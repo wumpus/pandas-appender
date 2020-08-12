@@ -163,3 +163,30 @@ def test_errors():
     dfa = DF_Appender()
     with pytest.raises(ValueError):
         dfa.append({'a': 1}, ignore_index=True)
+
+
+@pytest.mark.xfail(reason='pandas-append behaves differently from DataFrame.append')
+def test_inconsistant_types():
+    # pass in df, append something bad
+    df = pd.DataFrame([{'a': 128}])
+    df = df.astype({'a': 'int64'})
+    assert df['a'].dtype == 'int64', 'this one actually passes'
+
+    dfa = DF_Appender(df, ignore_index=True)
+    dfa = dfa.append({'a': 0.1})
+    df2 = dfa.finalize()
+    # DF_Appender converts 0.1 to the integer 0
+
+    df3 = df.append({'a': 0.1}, ignore_index=True)
+    # at this point Pandas has promoted the type of a to 'float64'
+
+    assert df2['a'].dtype == df3['a'].dtype
+    assert df2.equals(df3), 'dfa same odd result as df.append'
+
+    dfa = DF_Appender(ignore_index=True, dtypes={'a': 'int64'})
+    dfa = dfa.append({'a': 0.1})
+    df2 = dfa.finalize()
+    # DF_Appender converts 0.1 to the integer 0
+
+    assert df2['a'].dtype == df3['a'].dtype
+    assert df2.equals(df3), 'dfa same odd result as df.append, another way'

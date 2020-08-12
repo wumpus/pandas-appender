@@ -53,3 +53,21 @@ or it will analyze the first chunk of appended lines:
 dfa = DF_appender(ignore_index=True, infer_categories=True)
 ```
 These inferred categories will override existing types or a `dtypes=` argument.
+
+## Incompatibilities with pandas.DataFrame.append()
+
+# pandas.DataFame.append is idempotent, DF_Appender is not
+
+* Pandas: `df_new = df.append()  # df is not changed`
+* DF_Appender: `dfa_new = dfa.append  # modifies dfa, and dfa_new == dfa
+
+# pandas.DataFrame.append will promote types, whle DF_Appender is strict 
+
+* Pandas: append 0.1 to previously integer column, it will be promoted to float
+* DF_Appender: when initialized with `dtypes=` or an existing DataFrame, appending
+0.1 to an integer column causes 0.1 to be cast to an integer, i.e. 0.
+
+## TODO
+
+add a `predicted_rows=` kwarg, and scale memory usage (chunksize, middles) to keep
+performance up for larger row counts, by using more memory.
