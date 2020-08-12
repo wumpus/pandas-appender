@@ -26,9 +26,30 @@ for i in range(1_000_000):
 df = pdfa.finalize()
 ```
 
-## TODO
+## Type hints and category detection
 
-Add a `df_template` argument so that columns with `dtype='category'`
-can be efficiently represented. Or, make this template from the df
-passed in?
+Using narrower types and categories can often dramatically reduce the size of a
+DataFrame. There are two ways to do this in pandas-appender. One is to
+append to an existing dataframe:
 
+```
+pdfa = PDF_appender(df, ignore_index=True)
+```
+
+and the second is to pass in a `dtypes=` argument:
+
+```
+pdfa = PDF_appender(ignore_index=True, dtypes=another_dataframe.dtypes)
+```
+
+pandas-appender also offers a way to infer which columns would be smaller
+if they were categories. This code will either analyze an existing dataframe
+that you're appending to:
+```
+pdfa = PDF_appender(df, ignore_index=True, infer_categories=True)
+```
+or it will analyze the first chunk of appended lines:
+```
+pdfa = PDF_appender(ignore_index=True, infer_categories=True)
+```
+These inferred categories will override existing types or a `dtypes=` argument.

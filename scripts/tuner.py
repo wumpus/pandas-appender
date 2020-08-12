@@ -5,17 +5,25 @@ from pandas_appender import PDF_Appender
 
 
 def do_one(total, chunksize, middles):
-    pdfa = PDF_Appender(chunksize=chunksize, middles=middles, ignore_index=True)
+    #dtypes = None
+    #dtypes = {'a': 'int64', 'b': 'int64', 'c': 'int64', 'd': 'int64', 'e': 'int64', 'f': 'int64'}
+    dtypes = {'a': 'float64', 'b': 'float64', 'c': 'float64', 'd': 'float64', 'e': 'float64', 'f': 'float64'}
+    pdfa = PDF_Appender(chunksize=chunksize, middles=middles, dtypes=dtypes, ignore_index=True, EARLY=True)
     for a in range(total):
-        pdfa.append({'a': a})
-    pd = pdfa.finalize()
-    assert len(pd) == total
+        #pdfa.append({'a': a})
+        pdfa.append({'a': a, 'b': a, 'c': a, 'd': a, 'e': a, 'f': a})
+    df = pdfa.finalize()
+    print(df.dtypes)
+    print(len(df))
+    assert len(df) == total
 
 
 total = 1_000_000
 
-for chunksize in (1000, 2000, 2500, 5000):
-    for middles in (5, 10, 20, 50):
+#for chunksize in (10000, 20000):
+#    for middles in (50, 100, 200, 500, 1000, 2000):
+for chunksize in (1000, 2000, 2500, 5000, 10000, 20000):
+    for middles in (5, 10, 50, 100, 200, 500, 1000, 2000):
         par = partial(do_one, total, chunksize, middles)
         t = timeit.timeit(par, number=1)
         print('total={} chunksize={} middles={} time={}'.format(total, chunksize, middles, t))
