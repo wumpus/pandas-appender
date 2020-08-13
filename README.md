@@ -7,8 +7,9 @@ it's extremely inefficient to do so for a large dataframe, you're supposed to ma
 multiple dataframes and pd.concat them instead.
 
 So... helper function? Pandas doesn't seem to have one. Roll your own?
-OK then. Here's that helper function. It can append around 1 million small
-rows per cpu-second, and has modest additional memory usage.
+OK then. Here's that helper function. It can append around 1 million
+very small rows per cpu-second, and has modest additional memory
+usage.
 
 ## Install
 
