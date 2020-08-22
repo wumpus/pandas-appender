@@ -67,8 +67,3 @@ These inferred categories will override existing types or a `dtypes=` argument.
 * Pandas: append `0.1` to previously integer column, and the column will be promoted to float
 * DF_Appender: when initialized with `dtypes=` or an existing DataFrame, appending
 `0.1` to an integer column causes `0.1` to be cast to an integer, i.e. `0`.
-
-## TODO
-
-add a `predicted_rows=` kwarg, and scale memory usage (chunksize, middles) to keep
-performance up for larger row counts, by using more memory.
