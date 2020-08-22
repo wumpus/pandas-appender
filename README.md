@@ -9,7 +9,7 @@ multiple dataframes and pd.concat them instead.
 So... helper function? Pandas doesn't seem to have one. Roll your own?
 OK then. Here's that helper function. It can append around 1 million
 very small rows per cpu-second, and has modest additional memory
-usage.
+usage (~10 megabytes).
 
 ## Install
 
@@ -64,7 +64,7 @@ These inferred categories will override existing types or a `dtypes=` argument.
 
 ### pandas.DataFrame.append will promote types, while DF_Appender is strict 
 
-* Pandas: append `0.1` to previously integer column, it will be promoted to float
+* Pandas: append `0.1` to previously integer column, and the column will be promoted to float
 * DF_Appender: when initialized with `dtypes=` or an existing DataFrame, appending
 `0.1` to an integer column causes `0.1` to be cast to an integer, i.e. `0`.
 

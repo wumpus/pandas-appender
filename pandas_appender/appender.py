@@ -5,7 +5,7 @@ from . import hints
 
 
 class DF_Appender(object):
-    def __init__(self, df=None, chunksize=2500, middles=10, dtypes=None, infer_categories=False, **append_kwargs):
+    def __init__(self, df=None, chunksize=10000, middles=200, dtypes=None, infer_categories=False, **append_kwargs):
         if isinstance(dtypes, dict):
             self._dtypes = pd.Series(dtypes, dtype='object')
         else:
