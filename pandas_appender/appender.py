@@ -5,7 +5,34 @@ from . import hints
 
 
 class DF_Appender(object):
+    '''A class used to make appending to a Pandas DataFrame efficient.'''
+
     def __init__(self, df=None, chunksize=10000, middles=200, dtypes=None, infer_categories=False, **append_kwargs):
+        '''Initialize a DF_Appender object.
+
+        Parameters
+        ----------
+        df : DataFrame or Series/dict-like object, or list of these
+            Initialize the DF_Appender with these rows.
+        chunksize : int, default 10000
+            `chunksize` and `middles` controls how much extra memory
+            the append algorithm uses in order to save cpu time.
+            `chunksize=10000` and `middles=200` uses about 10 megabytes,
+            and provides good performance out to 100,000,000 rows appended.
+        middles : int, default 200
+            See `chunksize`.
+        dtypes : str, type, dict, default None
+            Initialize the DataFrame with these column dtypes.
+        infer_categories : bool, default False
+            if True, examine the first chunk of appended rows to determine
+            which columns are smaler as dtype 'category'.
+        ignore_index : bool, default False
+            If True, the resulting axis will be labeled 0, 1, …, n - 1.
+        verify_integrity : bool, default False
+            If True, raise ValueError on creating index with duplicates.
+        sort : bool, default False
+            Sort columns if the columns of `self` and `other` are not aligned.
+        '''
         if isinstance(dtypes, dict):
             self._dtypes = pd.Series(dtypes, dtype='object')
         else:
@@ -36,6 +63,24 @@ class DF_Appender(object):
                 raise ValueError('unexpected kwarg '+key)
 
     def append(self, other, **kwargs):
+        '''Append rows of `other` to the end of the caller.
+
+        Columns in `other` that are not in the caller are added as new columns.
+
+        Unlike pd.DataFrame.append, the caller is modified.
+
+        Unlike Pandas, parameters such as `ignore_index` are not specified
+        in the `.append()` call. You should pass them to __init__ instead.
+
+        Parameters
+        ----------
+        other : DataFrame or Series/dict-like object, or list of these
+            The data to append.
+
+        Returns
+        -------
+        DF_Appender
+        '''
         if kwargs:
             raise ValueError('unexpected keyword, should you move it to init()? '+repr(kwargs))
 
@@ -45,6 +90,16 @@ class DF_Appender(object):
         return self  # mimic pd.DataFrame.append return value
 
     def finalize(self):
+        '''Finalizes all intermediate work and returns a DataFrame.
+
+        Additional `.append()` calls may be made after `.finalize()` is called.
+        Frequently calling `finalize` will inhibit pandas-appender from being
+        able to save cpu time.
+
+        Returns
+        -------
+        DataFrame
+        '''
         self._merge_small()
         self._merge_middles()
         return self._df
