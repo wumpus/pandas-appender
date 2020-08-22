@@ -1,6 +1,6 @@
 # pandas-appender
 
-[![Build Status](https://travis-ci.org/wumpus/pandas-appender.svg?branch=master)](https://travis-ci.org/wumpus/pandas-appender) [![Coverage Status](https://coveralls.io/repos/github/wumpus/pandas-appender/badge.svg?branch=master)](https://coveralls.io/github/wumpus/pandas-appender?branch=master) [![Apache License 2.0](https://img.shields.io/github/license/wumpus/pandas-appender.svg)](LICENSE)
+[![Build Status](https://travis-ci.com/wumpus/pandas-appender.svg?branch=master)](https://travis-ci.com/wumpus/pandas-appender) [![Coverage Status](https://coveralls.io/repos/github/wumpus/pandas-appender/badge.svg?branch=master)](https://coveralls.io/github/wumpus/pandas-appender?branch=master) [![Apache License 2.0](https://img.shields.io/github/license/wumpus/pandas-appender.svg)](LICENSE)
 
 Have you ever wanted to append a bunch of rows to a Pandas DataFrame? Turns out that
 it's extremely inefficient to do so for a large dataframe, you're supposed to make
