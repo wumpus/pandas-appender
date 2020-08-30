@@ -164,6 +164,10 @@ def test_errors():
     with pytest.raises(ValueError):
         dfa.append({'a': 1}, ignore_index=True)
 
+    dfa = DF_Appender()
+    df = dfa.finalize()
+    assert len(df) == 0
+
 
 @pytest.mark.xfail(reason='pandas-append behaves differently from DataFrame.append')
 def test_inconsistant_types():
