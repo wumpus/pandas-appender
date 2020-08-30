@@ -7,20 +7,16 @@ from . import hints
 class DF_Appender(object):
     '''A class used to make appending to a Pandas DataFrame efficient.'''
 
-    def __init__(self, df=None, chunksize=10000, middles=200, dtypes=None, infer_categories=False, **append_kwargs):
+    def __init__(self, df=None, chunksize=5000, dtypes=None, infer_categories=False, **append_kwargs):
         '''Initialize a DF_Appender object.
 
         Parameters
         ----------
         df : DataFrame or Series/dict-like object, or list of these
             Initialize the DF_Appender with these rows.
-        chunksize : int, default 10000
-            `chunksize` and `middles` controls how much extra memory
-            the append algorithm uses in order to save cpu time.
-            `chunksize=10000` and `middles=200` uses about 10 megabytes,
-            and provides good performance out to 100,000,000 rows appended.
-        middles : int, default 200
-            See `chunksize`.
+        chunksize : int, default 5000
+            `chunksize` controls how much extra memory the append algorithm
+            uses in order to save cpu time.
         dtypes : str, type, dict, default None
             Initialize the DataFrame with these column dtypes.
         infer_categories : bool, default False
@@ -43,7 +39,7 @@ class DF_Appender(object):
         elif dtypes is None:  # df, no dtypes
             self._dtypes = df.dtypes
             if infer_categories:
-                self._infer_and_merge(df)
+                self._infer_and_merge(df)  # sets self._dtypes
                 df = df.astype(self._dtypes)
             else:
                 self._dtypes = df.dtypes
@@ -54,7 +50,6 @@ class DF_Appender(object):
         self._df = df
         self._chunksize = chunksize
         self._small = []
-        self._middle_count = middles
         self._middles = []
         self._infer_categories = infer_categories
         self._append_kwargs = append_kwargs
@@ -117,6 +112,8 @@ class DF_Appender(object):
         else:
             df = pd.DataFrame()
 
+        self._chunksize = int(self._chunksize * 1.02)
+
         df = df.append(self._small, **self._append_kwargs)
 
         if self._infer_categories:
@@ -127,8 +124,6 @@ class DF_Appender(object):
 
         self._middles.append(df)
         self._small = []
-        if len(self._middles) > self._middle_count:
-            self._merge_middles()
 
     def _merge_middles(self):
         if not self._middles:

@@ -33,12 +33,12 @@ def test_basics():
         assert np.array_equal(df['a'].values, np.array(range(a)))
 
     for a in range(1, 5):
-        dfa = DF_Appender(chunksize=1, middles=1, ignore_index=True)
+        dfa = DF_Appender(chunksize=1, ignore_index=True)
         for aa in range(a):
             dfa.append({'a': aa})
         df = dfa.finalize()
         print(df)
-        assert len(df) == a, 'appending dicts, minimum counts'
+        assert len(df) == a, 'appending dicts, minimum chunksize'
         assert np.array_equal(df['a'].values, np.array(range(a)))
 
     for a in range(1, 5):
