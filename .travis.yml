@@ -33,6 +33,7 @@ matrix:
 #    arch: arm64
   - python: 3.9-dev  # very slow, 13 minutes to fail
     install:
+    - pip install -U cython
     - pip install git+https://github.com/wumpus/pandas.git@1.1.x
     - pip install .
     - pip install .[test]
