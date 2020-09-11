@@ -46,6 +46,8 @@ setup(
     classifiers=[
         'Development Status :: 4 - Beta',
         'Environment :: Console',
+        'Operating System :: POSIX :: Linux',
+        'Environment :: MacOS X',
         'Intended Audience :: Information Technology',
         'Intended Audience :: Developers',
         'Natural Language :: English',
@@ -55,6 +57,7 @@ setup(
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
+        #'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3 :: Only',
     ],
 )
