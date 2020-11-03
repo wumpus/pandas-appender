@@ -32,7 +32,7 @@ matrix:
 #  - python: 3.8
 #    arch: arm64  # very slow but passes as of 10/3/20, 38 minutes
 #  - python: 3.8
-#    arch: s390x  # iirc no pandas wheels for s390x
+#    arch: s390x  # iirc no pandas wheels and a build failure for s390x
 #  - name: "OSX"  # passes as of 10/3/20, 1m17s to run, commented out for credits reasons
 #    os: osx
 #    osx_image: xcode12  # 10.15.5
