@@ -61,10 +61,10 @@ These inferred categories will override existing types or a `dtypes=` argument.
 ### pandas.DataFame.append is idempotent, DF_Appender is not
 
 * Pandas: `df_new = df.append()  # df is not changed`
-* DF_Appender: `dfa_new = dfa.append  # modifies dfa, and dfa_new == dfa`
+* DF_Appender: `dfa_new = dfa.append()  # modifies dfa, and dfa_new == dfa`
 
 ### pandas.DataFrame.append will promote types, while DF_Appender is strict 
 
-* Pandas: append `0.1` to previously integer column, and the column will be promoted to float
+* Pandas: append `0.1` to an integer column, and the column will be promoted to float
 * DF_Appender: when initialized with `dtypes=` or an existing DataFrame, appending
 `0.1` to an integer column causes `0.1` to be cast to an integer, i.e. `0`.
