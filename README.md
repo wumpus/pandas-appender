@@ -21,7 +21,7 @@ rows appended.
 ```
 from pandas_appender import DF_Appender
 
-dfa = DF_appender(ignore_index=True)  # note that ignore_index moves to the init
+dfa = DF_Appender(ignore_index=True)  # note that ignore_index moves to the init
 for i in range(1_000_000):
     dfa = dfa.append({'i': i})
 
@@ -35,24 +35,24 @@ DataFrame. There are two ways to do this in pandas-appender. One is to
 append to an existing dataframe:
 
 ```
-dfa = DF_appender(df, ignore_index=True)
+dfa = DF_Appender(df, ignore_index=True)
 ```
 
 and the second is to pass in a `dtypes=` argument:
 
 ```
-dfa = DF_appender(ignore_index=True, dtypes=another_dataframe.dtypes)
+dfa = DF_Appender(ignore_index=True, dtypes=another_dataframe.dtypes)
 ```
 
 pandas-appender also offers a way to infer which columns would be smaller
 if they were categories. This code will either analyze an existing dataframe
 that you're appending to:
 ```
-dfa = DF_appender(df, ignore_index=True, infer_categories=True)
+dfa = DF_Appender(df, ignore_index=True, infer_categories=True)
 ```
 or it will analyze the first chunk of appended lines:
 ```
-dfa = DF_appender(ignore_index=True, infer_categories=True)
+dfa = DF_Appender(ignore_index=True, infer_categories=True)
 ```
 These inferred categories will override existing types or a `dtypes=` argument.
 
