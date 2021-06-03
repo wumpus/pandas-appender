@@ -19,7 +19,7 @@ extras_require = {
     'test': test_requirements,  # setup no longer tests, so make them an extra that .travis.yml uses
 }
 
-setup_requires = ['setuptools_scm<6']  # 6 dropped Py 3.5
+setup_requires = ['setuptools_scm==5.0.2']  # 6 dropped Py 3.5
 
 scripts = []
 
