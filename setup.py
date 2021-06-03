@@ -19,7 +19,7 @@ extras_require = {
     'test': test_requirements,  # setup no longer tests, so make them an extra that .travis.yml uses
 }
 
-setup_requires = ['setuptools_scm==5.0.2']  # 6 dropped Py 3.5
+setup_requires = ['setuptools_scm']
 
 scripts = []
 
@@ -37,7 +37,7 @@ setup(
     author_email='lindahl@pbm.com',
     url='https://github.com/wumpus/pandas-appender',
     packages=packages,
-    python_requires=">=3.5.*",
+    python_requires=">=3.6.*",
     extras_require=extras_require,
     setup_requires=setup_requires,
     install_requires=requires,
@@ -53,7 +53,7 @@ setup(
         'Natural Language :: English',
         'License :: OSI Approved :: Apache Software License',
         'Programming Language :: Python',
-        'Programming Language :: Python :: 3.5',
+        #'Programming Language :: Python :: 3.5',  # setuptools_scm 6 dropped Py 3.5 and somehow I can't ask for an old version?
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
