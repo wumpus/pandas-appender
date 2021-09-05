@@ -2,15 +2,16 @@
 
 [![Build Status](https://dev.azure.com/lindahl0577/pandas-appender/_apis/build/status/wumpus.pandas-appender?branchName=main)](https://dev.azure.com/lindahl0577/pandas-appender/_build/latest?definitionId=2&branchName=main) [![Coverage](https://coveralls.io/repos/github/wumpus/pandas-appender/badge.svg?branch=main)](https://coveralls.io/github/wumpus/pandas-appender?branch=main) [![Apache License 2.0](https://img.shields.io/github/license/wumpus/pandas-appender.svg)](LICENSE)
 
-Have you ever wanted to append a bunch of rows to a Pandas DataFrame? Turns out that
-it's extremely inefficient to do so for a large dataframe, you're supposed to make
-multiple dataframes and pd.concat them instead.
+Have you ever wanted to append a bunch of rows to a Pandas DataFrame?
+Turns out that it's extremely inefficient to do! For a large
+dataframe, you're supposed to make multiple dataframes and `pd.concat()`
+them instead.
 
-So... helper function? Pandas doesn't seem to have one. Roll your own?
-OK then. Here's that helper function. It can append around 1 million
-very small rows per cpu-second, and has a modest additional memory
-usage of around 5 megabytes, dynamically growing with the number of
-rows appended.
+So... helper function? Pandas doesn't have one. Roll your own?  OK
+then. Here's that helper function. It can append around 1 million very
+small rows per cpu-second. It has a modest additional memory usage of
+around 5 megabytes, dynamically growing with the number of rows
+appended.
 
 ## Install
 
