@@ -8,15 +8,14 @@ packages = [
     'pandas_appender',
 ]
 
-test_requirements = ['pytest>=4.6', 'coverage', 'pytest-cov', 'pytest-sugar', 'coveralls', 'numpy']
-# pytest-cov requires pytest >= 4.6, dunno why this doesn't just work in travis-ci
+test_requirements = ['pytest', 'pytest-cov', 'pytest-sugar', 'coveralls', 'numpy']
 
 requires = [
     'pandas'
 ]
 
 extras_require = {
-    'test': test_requirements,  # setup no longer tests, so make them an extra that .travis.yml uses
+    'test': test_requirements,  # setup no longer tests, so make them an extra
 }
 
 setup_requires = ['setuptools_scm']
@@ -44,7 +43,7 @@ setup(
     scripts=scripts,
     license='Apache 2.0',
     classifiers=[
-        'Development Status :: 4 - Beta',
+        'Development Status :: 5 - Production/Stable',
         'Environment :: Console',
         'Operating System :: POSIX :: Linux',
         'Environment :: MacOS X',
@@ -58,6 +57,7 @@ setup(
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
         'Programming Language :: Python :: 3 :: Only',
     ],
 )
