@@ -26,7 +26,7 @@ dfa = DF_Appender(ignore_index=True)  # note that ignore_index moves to the init
 for i in range(1_000_000):
     dfa = dfa.append({'i': i})
 
-df = dfa.finalize()
+df = dfa.finalize()  # must call .finalize() before you can use the results
 ```
 
 ## Type hints and category detection
@@ -58,6 +58,11 @@ dfa = DF_Appender(ignore_index=True, infer_categories=True)
 These inferred categories will override existing types or a `dtypes=` argument.
 
 ## Incompatibilities with pandas.DataFrame.append()
+
+### DF_Appender must be finalized before use
+
+* Pandas: `df_new = df.append()  # df_new is a dataframe`
+* DF_Appender: `dfa_new = dfa.append()  # must do df = dfa.finalize() to get a DataFrame`
 
 ### pandas.DataFame.append is idempotent, DF_Appender is not
 
