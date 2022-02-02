@@ -7,11 +7,14 @@ Turns out that it's extremely inefficient to do! For a large
 dataframe, you're supposed to make multiple dataframes and `pd.concat()`
 them instead.
 
-So... helper function? Pandas doesn't have one. Roll your own?  OK
-then. Here's that helper function. It can append around 1 million very
-small rows per cpu-second. It has a modest additional memory usage of
-around 5 megabytes, dynamically growing with the number of rows
-appended.
+Also, Pandas deprecated `dataframe.append()` in version 1.4 and
+intends to remove it in 2.0.
+
+So... helper function? Pandas doesn't have one. Roll your own?
+Ugh. OK then: here's that helper function. It can append around 1
+million very small rows per cpu-second. It has a modest additional
+memory usage of around 5 megabytes, dynamically growing with the
+number of rows appended.
 
 ## Install
 
