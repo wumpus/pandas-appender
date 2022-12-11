@@ -1,8 +1,14 @@
+import warnings
+
 import pandas as pd
 import numpy as np
 import pytest
 
 from pandas_appender import DF_Appender
+
+
+warnings.filterwarnings("ignore", category=FutureWarning)  # .append deprecation
+
 
 # can append: df, series, dict-like, or list of these
 #   if you append a list of dicts, you end up with a column of objects

@@ -1,8 +1,11 @@
-import pytest
+import warnings
 
 import pandas as pd
 
 import pandas_appender.hints
+
+
+warnings.filterwarnings("ignore", category=FutureWarning)  # .append deprecation
 
 
 def test_infer_categories():
