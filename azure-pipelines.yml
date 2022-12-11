@@ -2,13 +2,13 @@ trigger:
 - main
 
 jobs:
+  # https://github.com/actions/python-versions/blob/main/versions-manifest.json
   - job: linux
     pool:
       vmImage: 'ubuntu-latest'
     strategy:
       matrix:
-        Python36:
-          python.version: '3.6'
+        # Python 3.6 is not available on ubuntu 22.04 (latest)
         Python37:
           python.version: '3.7'
         Python38:
@@ -17,6 +17,8 @@ jobs:
           python.version: '3.9'
         Python310:
           python.version: '3.10'
+        Python310:
+          python.version: '3.11'
 
     steps:
     - task: UsePythonVersion@0
