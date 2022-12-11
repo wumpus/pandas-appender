@@ -6,6 +6,12 @@ clean_coverage:
 test_coverage: clean_coverage
 	PYTHONPATH=. pytest --cov-report=xml --cov-append --cov-branch --cov pandas_appender -v -v test/
 
+check_action:
+	python -c 'import yaml, sys; print(yaml.safe_load(sys.stdin))' < .github/workflows/test-all.yml > /dev/null
+
+check_azure:
+	python -c 'import yaml, sys; print(yaml.safe_load(sys.stdin))' < ./azure-pipelines.yml > /dev/null
+
 distclean:
 	rm -rf dist/
 
