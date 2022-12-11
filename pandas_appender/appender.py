@@ -1,3 +1,5 @@
+import warnings
+
 import pandas as pd
 
 
@@ -79,7 +81,6 @@ class DF_Appender(object):
         if kwargs:
             raise ValueError('unexpected keyword, should you move it to init()? '+repr(kwargs))
 
-        # XXX dataframe.append() is deprecated in Pandas 1.4
         self._small.append(other)
         if len(self._small) > self._chunksize:
             self._merge_small()
@@ -115,8 +116,10 @@ class DF_Appender(object):
 
         self._chunksize = int(self._chunksize * 1.02)
 
-        # XXX dataframe.append() is deprecated in Pandas 1.4
-        df = df.append(self._small, **self._append_kwargs)
+        with warnings.catch_warnings():
+            warnings.simplefilter(action='ignore', category=FutureWarning)
+
+            df = df.append(self._small, **self._append_kwargs)
 
         if self._infer_categories:
             self._infer_and_merge(df)
