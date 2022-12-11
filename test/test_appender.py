@@ -7,15 +7,16 @@ import pytest
 from pandas_appender import DF_Appender
 
 
-warnings.filterwarnings("ignore", category=FutureWarning)  # .append deprecation
-
-
 # can append: df, series, dict-like, or list of these
 #   if you append a list of dicts, you end up with a column of objects
 # always test ignore_index=True
 
+# I should put the warnings in a fixture
+
 
 def test_basics():
+    warnings.filterwarnings("ignore", category=FutureWarning)  # .append deprecation
+
     for a in range(1, 5):
         dfa = DF_Appender(ignore_index=True)
         for aa in range(a):
@@ -91,6 +92,8 @@ def test_hints():
 
 
 def test_infer_categories():
+    warnings.filterwarnings("ignore", category=FutureWarning)  # .append deprecation
+
     dfa = DF_Appender(ignore_index=True, infer_categories=True)
     for aa in range(100):
         # range has to be big enough that the category saves memory: 100 not 10
@@ -107,6 +110,8 @@ def test_infer_categories():
 
 @pytest.mark.xfail(reason='chunksize too small for infer categories to fire')
 def test_infer_categories_xfail():
+    warnings.filterwarnings("ignore", category=FutureWarning)  # .append deprecation
+
     dfa = DF_Appender(ignore_index=True, chunksize=2, infer_categories=True)
     for aa in range(100):
         dfa.append({'a': 0, 'b': aa})
@@ -116,6 +121,8 @@ def test_infer_categories_xfail():
 
 
 def test_dtypes_infer_combinations():
+    warnings.filterwarnings("ignore", category=FutureWarning)  # .append deprecation
+
     # no df, both dtypes and infer
     dtypes = {'a': 'int32', 'b': 'float32'}
     dfa = DF_Appender(ignore_index=True, dtypes=dtypes, infer_categories=True)
@@ -154,6 +161,8 @@ def test_dtypes_infer_combinations():
 
 
 def test_stress():
+    warnings.filterwarnings("ignore", category=FutureWarning)  # .append deprecation
+
     a = 1000000  # around 1 second for 1 million
     dfa = DF_Appender(ignore_index=True)
     for aa in range(a):
@@ -164,6 +173,8 @@ def test_stress():
 
 
 def test_errors():
+    warnings.filterwarnings("ignore", category=FutureWarning)  # .append deprecation
+
     with pytest.raises(ValueError):
         dfa = DF_Appender(asdf=True)
     dfa = DF_Appender()
@@ -177,6 +188,8 @@ def test_errors():
 
 @pytest.mark.xfail(reason='pandas-append behaves differently from DataFrame.append')
 def test_inconsistant_types():
+    warnings.filterwarnings("ignore", category=FutureWarning)  # .append deprecation
+
     # pass in df, append something bad
     df = pd.DataFrame([{'a': 128}])
     df = df.astype({'a': 'int64'})

@@ -5,10 +5,9 @@ import pandas as pd
 import pandas_appender.hints
 
 
-warnings.filterwarnings("ignore", category=FutureWarning)  # .append deprecation
-
-
 def test_infer_categories():
+    warnings.filterwarnings("ignore", category=FutureWarning)  # .append deprecation
+
     df = pd.DataFrame()
     for aa in range(100):
         df = df.append({'a': 0, 'b': aa}, ignore_index=True)
