@@ -9,6 +9,9 @@ jobs:
     strategy:
       matrix:
         # Python 3.6 is not available on ubuntu 22.04 (latest)
+        Python36:
+          vmImage: 'ubuntu-20.4'
+          python.version: '3.6'
         Python37:
           python.version: '3.7'
         Python38:
@@ -19,9 +22,10 @@ jobs:
           python.version: '3.10'
         Python311:
           python.version: '3.11'
-        Python312:
+        #Python312:
           # requires allowUnstable
-          python.version: '3.12-dev'
+          # as of 3.12.0-alpha.3, no pandas or numpy wheels, pandas build fails after 19 minutes
+          #python.version: '3.12-dev'
 
     steps:
     - task: UsePythonVersion@0
