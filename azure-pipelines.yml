@@ -9,9 +9,10 @@ jobs:
     strategy:
       matrix:
         # Python 3.6 is not available on ubuntu 22.04 (latest)
-        Python36:
-          vmImage: 'ubuntu-20.4'
-          python.version: '3.6'
+        #Python36:
+          # specifying the vmImage here does not work
+          #vmImage: 'ubuntu-20.4'
+          #python.version: '3.6'
         Python37:
           python.version: '3.7'
         Python38:
