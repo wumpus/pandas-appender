@@ -20,12 +20,14 @@ jobs:
         Python311:
           python.version: '3.11'
         Python312:
+          # requires allowUnstable
           python.version: '3.12-dev'
 
     steps:
     - task: UsePythonVersion@0
       inputs:
         versionSpec: '$(python.version)'
+        allowUnstable: true
       displayName: 'Use Python $(python.version)'
 
     - script: |
