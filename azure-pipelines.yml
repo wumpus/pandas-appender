@@ -20,7 +20,7 @@ jobs:
         Python311:
           python.version: '3.11'
         Python312:
-          python.version: '3.12.0-alpha.3'
+          python.version: '3.12-dev'
 
     steps:
     - task: UsePythonVersion@0
