@@ -26,7 +26,7 @@ jobs:
 
     - script: |
         python -m pip install --upgrade pip
-        pip --use-feature=in-tree-build install . .[test]
+        pip install . .[test]
       displayName: 'Install dependencies'
 
     - script: |
@@ -60,7 +60,7 @@ jobs:
 
     - script: |
         python -m pip install --upgrade pip
-        pip --use-feature=in-tree-build install . .[test]
+        pip install . .[test]
       displayName: 'Install dependencies'
 
     - script: |
