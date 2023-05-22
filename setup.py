@@ -11,7 +11,7 @@ packages = [
 test_requirements = ['pytest', 'pytest-cov', 'pytest-sugar', 'coveralls', 'numpy']
 
 requires = [
-    'pandas<2'
+    'pandas<2'  # DataFrame.append() disappears in v2
 ]
 
 extras_require = {
@@ -53,7 +53,7 @@ setup(
         'License :: OSI Approved :: Apache Software License',
         'Programming Language :: Python',
         #'Programming Language :: Python :: 3.5',  # setuptools_scm 6 dropped Py 3.5 and somehow I can't ask for an old version?
-        'Programming Language :: Python :: 3.6',  # can't CI on azure 22.04
+        'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
