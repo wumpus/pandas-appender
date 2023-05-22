@@ -11,7 +11,7 @@ packages = [
 test_requirements = ['pytest', 'pytest-cov', 'pytest-sugar', 'coveralls', 'numpy']
 
 requires = [
-    'pandas'
+    'pandas<2'
 ]
 
 extras_require = {
