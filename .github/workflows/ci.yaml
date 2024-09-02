@@ -19,12 +19,15 @@ jobs:
         EXTRA: [false]  # used to force includes to get included
         include:
           - python-version: 3.7
-            os: ubuntu-20.04
+            os: ubuntu-20.04  # oldest LTS in github actions
             EXTRA: true
           - python-version: '3.11'
+            os: ubuntu-20.04
+            EXTRA: true
+          - python-version: 3.7
             os: macos-latest
             EXTRA: true
-          - python-version: '3.12'
+          - python-version: '3.11'
             os: macos-latest
             EXTRA: true
 
