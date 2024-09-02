@@ -8,14 +8,15 @@ packages = [
     'pandas_appender',
 ]
 
-test_requirements = ['pytest', 'pytest-cov', 'pytest-sugar', 'coveralls', 'numpy']
+test_requirements = ['pytest', 'pytest-cov', 'pytest-sugar']
 
 requires = [
-    'pandas<2'  # DataFrame.append() disappears in v2
+    'pandas<2',  # DataFrame.append() disappears in v2
+    'numpy<2',  # apparently requires pandas 2
 ]
 
 extras_require = {
-    'test': test_requirements,  # setup no longer tests, so make them an extra
+    'test': test_requirements,
 }
 
 setup_requires = ['setuptools_scm']
@@ -36,7 +37,7 @@ setup(
     author_email='lindahl@pbm.com',
     url='https://github.com/wumpus/pandas-appender',
     packages=packages,
-    python_requires=">=3.6",
+    python_requires='>=3.7',
     extras_require=extras_require,
     setup_requires=setup_requires,
     install_requires=requires,
@@ -53,12 +54,13 @@ setup(
         'License :: OSI Approved :: Apache Software License',
         'Programming Language :: Python',
         #'Programming Language :: Python :: 3.5',  # setuptools_scm 6 dropped Py 3.5 and somehow I can't ask for an old version?
-        'Programming Language :: Python :: 3.6',
+        #'Programming Language :: Python :: 3.6',  # no longer in github actions
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
         'Programming Language :: Python :: 3.11',
+        'Programming Language :: Python :: 3.12',
         'Programming Language :: Python :: 3 :: Only',
     ],
 )
