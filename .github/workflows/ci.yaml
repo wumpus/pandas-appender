@@ -24,9 +24,6 @@ jobs:
           - python-version: '3.11'
             os: ubuntu-20.04
             EXTRA: true
-          - python-version: 3.7
-            os: macos-latest
-            EXTRA: true
           - python-version: '3.11'
             os: macos-latest
             EXTRA: true
