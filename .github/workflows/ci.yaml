@@ -23,6 +23,7 @@ jobs:
             os: ubuntu-20.04  # oldest LTS in github actions
             EXTRA: true
           - python-version: 3.7
+            os: ubuntu-latest
             EXTRA: true
             ONE: true
           - python-version: '3.11'
