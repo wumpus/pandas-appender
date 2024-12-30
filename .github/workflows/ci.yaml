@@ -22,37 +22,33 @@ jobs:
           - python-version: 3.7
             os: ubuntu-20.04  # oldest LTS in github actions
             EXTRA: true
-          - python-version: '3.11'
-            os: ubuntu-20.04
-            EXTRA: true
           - python-version: 3.7
             os: ubuntu-latest
             EXTRA: true
-            ONE: true
-          - python-version: '3.13'
-            os: ubuntu-latest
+            ONE: true  # this wheel exists, does not in 3.13
+          - python-version: '3.11'
+            os: ubuntu-20.04
             EXTRA: true
-            ONE: true
           - python-version: '3.11'
             os: macos-latest
             EXTRA: true
+          - python-version: '3.11'
+            os: macos-latest
+            EXTRA: true
+            ONE: true  # this wheel exists, does not in 3.13
           - python-version: '3.13'
             os: macos-latest
             EXTRA: true
-          - python-version: '3.13'
-            os: macos-latest
-            EXTRA: true
-            ONE: true
           - python-version: '3.7'
             os: windows-latest
             EXTRA: true
+          - python-version: '3.7'
+            os: windows-latest
+            EXTRA: true
+            ONE: true  # this wheel exists, does not in 3.13
           - python-version: '3.13'
             os: windows-latest
             EXTRA: true
-          - python-version: '3.13'
-            os: windows-latest
-            EXTRA: true
-            ONE: true
 
     steps:
 
