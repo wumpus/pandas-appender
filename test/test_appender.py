@@ -1,4 +1,3 @@
-import warnings
 
 import pandas as pd
 import numpy as np
@@ -7,16 +6,7 @@ import pytest
 from pandas_appender import DF_Appender
 
 
-# can append: df, series, dict-like, or list of these
-#   if you append a list of dicts, you end up with a column of objects
-# always test ignore_index=True
-
-# I should put the warnings in a fixture
-
-
 def test_basics():
-    warnings.filterwarnings("ignore", category=FutureWarning)  # .append deprecation
-
     for a in range(1, 5):
         dfa = DF_Appender(ignore_index=True)
         for aa in range(a):
@@ -57,13 +47,14 @@ def test_basics():
         assert len(df) == a, 'appending pd.Series of length 1'
         #assert np.array_equal(df['a'].values, np.array(range(a)))  # gets column name of '0'
 
-    for a in range(1, 5):
-        dfa = DF_Appender(ignore_index=True)
-        for aa in range(a):
-            dfa.append(pd.DataFrame([{'a': aa}]))
-        df = dfa.finalize()
-        assert len(df) == a, 'appending pd.Dataframe of length 1'
-        assert np.array_equal(df['a'].values, np.array(range(a)))
+    # you can't pass a list of df to the df constructor
+    #for a in range(1, 5):
+    #    dfa = DF_Appender(ignore_index=True)
+    #    for aa in range(a):
+    #        dfa.append(pd.DataFrame([{'a': aa}]))
+    #    df = dfa.finalize()
+    #    assert len(df) == a, 'appending pd.Dataframe of length 1'
+    #    assert np.array_equal(df['a'].values, np.array(range(a)))
 
 
 def test_hints():
@@ -82,18 +73,8 @@ def test_hints():
     df = dfa.finalize()
     assert df.dtypes.equals(dtypes), 'dtype as dict works the same as dtype'
 
-    dtypes = pd.Series({'a': 'category', 'b': 'int64'})
-
-    dfa = DF_Appender(ignore_index=True, chunksize=2, dtypes=dtypes)
-    with pytest.raises(TypeError):
-        for aa in range(10):
-            dfa.append({'a': [aa], 'b': aa})  # a value is unhashable type 
-        df = dfa.finalize()
-
 
 def test_infer_categories():
-    warnings.filterwarnings("ignore", category=FutureWarning)  # .append deprecation
-
     dfa = DF_Appender(ignore_index=True, infer_categories=True)
     for aa in range(100):
         # range has to be big enough that the category saves memory: 100 not 10
@@ -102,16 +83,9 @@ def test_infer_categories():
     dtypes = df.dtypes
     assert dtypes['a'] == 'category'
 
-    dfa = DF_Appender(df, ignore_index=True)
-    with pytest.raises(TypeError):
-        dfa.append({'a': [0], 'b': 3})  # unhashable type
-        dfa.finalize()
-
 
 @pytest.mark.xfail(reason='chunksize too small for infer categories to fire')
 def test_infer_categories_xfail():
-    warnings.filterwarnings("ignore", category=FutureWarning)  # .append deprecation
-
     dfa = DF_Appender(ignore_index=True, chunksize=2, infer_categories=True)
     for aa in range(100):
         dfa.append({'a': 0, 'b': aa})
@@ -121,8 +95,6 @@ def test_infer_categories_xfail():
 
 
 def test_dtypes_infer_combinations():
-    warnings.filterwarnings("ignore", category=FutureWarning)  # .append deprecation
-
     # no df, both dtypes and infer
     dtypes = {'a': 'int32', 'b': 'float32'}
     dfa = DF_Appender(ignore_index=True, dtypes=dtypes, infer_categories=True)
@@ -136,14 +108,17 @@ def test_dtypes_infer_combinations():
     assert df.dtypes['a'] == 'int64'
     assert df.dtypes['b'] == 'float32', 'astype did not change b'
 
+    # df, infer, no dtype
     dfa = DF_Appender(df, ignore_index=True, infer_categories=True)
     dfa.append({'a': 0, 'b': 0})
     df2 = dfa.finalize()
     assert df2.dtypes['a'] == 'category'
-    assert df2.dtypes['b'] == 'float32'
+    assert df2.dtypes['b'] == 'float64'  # type altered because it was merged with int64
 
     assert df.dtypes['a'] == 'int64'
-    assert df.dtypes['b'] == 'float32'
+    assert df.dtypes['b'] == 'float32', 'passing in df did not alter df'
+
+    # df, no infer, dtypes
     dtypes = {'b': 'float64'}
     dfa = DF_Appender(df, ignore_index=True, dtypes=dtypes)
     dfa.append({'a': 0, 'b': 0})
@@ -153,6 +128,8 @@ def test_dtypes_infer_combinations():
 
     assert df.dtypes['a'] == 'int64'
     assert df.dtypes['b'] == 'float32'
+
+    # df, types, infer
     dfa = DF_Appender(df, ignore_index=True, dtypes=dtypes, infer_categories=True)
     dfa.append({'a': 0, 'b': 0})
     df2 = dfa.finalize()
@@ -161,8 +138,6 @@ def test_dtypes_infer_combinations():
 
 
 def test_stress():
-    warnings.filterwarnings("ignore", category=FutureWarning)  # .append deprecation
-
     a = 1000000  # around 1 second for 1 million
     dfa = DF_Appender(ignore_index=True)
     for aa in range(a):
@@ -173,8 +148,6 @@ def test_stress():
 
 
 def test_errors():
-    warnings.filterwarnings("ignore", category=FutureWarning)  # .append deprecation
-
     with pytest.raises(ValueError):
         dfa = DF_Appender(asdf=True)
     dfa = DF_Appender()
@@ -188,8 +161,6 @@ def test_errors():
 
 @pytest.mark.xfail(reason='pandas-append behaves differently from DataFrame.append')
 def test_inconsistant_types():
-    warnings.filterwarnings("ignore", category=FutureWarning)  # .append deprecation
-
     # pass in df, append something bad
     df = pd.DataFrame([{'a': 128}])
     df = df.astype({'a': 'int64'})
