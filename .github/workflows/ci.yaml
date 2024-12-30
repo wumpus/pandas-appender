@@ -8,13 +8,13 @@ on:
 
 jobs:
   linux-macos:
-    name: test-all ${{ matrix.os }} ${{ matrix.python-version }}
+    name: test-all ${{ matrix.os }} ${{ matrix.python-version }} ${{ matrox.ONE }}
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        python-version: [3.7, 3.8, 3.9, '3.10', '3.11']
+        python-version: [3.7, 3.8, 3.9, '3.10', '3.11', '3.12', '3.13']
         # 3.12 has no pandas wheel, takes a long time to build
         EXTRA: [false]  # used to force includes to get included
         ONE: [false]  # used to ask for pandas<2
@@ -22,15 +22,28 @@ jobs:
           - python-version: 3.7
             os: ubuntu-20.04  # oldest LTS in github actions
             EXTRA: true
+          - python-version: '3.11'
+            os: ubuntu-20.04
+            EXTRA: true
           - python-version: 3.7
             os: ubuntu-latest
             EXTRA: true
             ONE: true
-          - python-version: '3.11'
-            os: ubuntu-20.04
+          - python-version: '3.13'
+            os: ubuntu-latest
             EXTRA: true
+            ONE: true
           - python-version: '3.11'
             os: macos-latest
+            EXTRA: true
+          - python-version: '3.13'
+            os: macos-latest
+            EXTRA: true
+          - python-version: '3.7'
+            os: windows-latest
+            EXTRA: true
+          - python-version: '3.13'
+            os: windows-latest
             EXTRA: true
 
     steps:
