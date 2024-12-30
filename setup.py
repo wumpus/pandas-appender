@@ -11,7 +11,6 @@ packages = [
 test_requirements = ['pytest', 'pytest-cov', 'pytest-sugar', 'coveralls', 'numpy']
 
 requires = [
-    'pandas<2'  # DataFrame.append() disappears in v2
 ]
 
 extras_require = {
