@@ -8,7 +8,7 @@ on:
 
 jobs:
   linux-macos:
-    name: test-all ${{ matrix.os }} ${{ matrix.python-version }} ${{ matrox.ONE }}
+    name: test-all ${{ matrix.os }} ${{ matrix.python-version }} ${{ matrix.ONE }}
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -39,12 +39,20 @@ jobs:
           - python-version: '3.13'
             os: macos-latest
             EXTRA: true
+          - python-version: '3.13'
+            os: macos-latest
+            EXTRA: true
+            ONE: true
           - python-version: '3.7'
             os: windows-latest
             EXTRA: true
           - python-version: '3.13'
             os: windows-latest
             EXTRA: true
+          - python-version: '3.13'
+            os: windows-latest
+            EXTRA: true
+            ONE: true
 
     steps:
 
