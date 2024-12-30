@@ -8,7 +8,7 @@ on:
 
 jobs:
   linux-macos:
-    name: test-all ${{ matrix.os }} ${{ matrix.python-version }} ${{ matrix.VERBOSE }}
+    name: test-all ${{ matrix.os }} ${{ matrix.python-version }}
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -17,10 +17,14 @@ jobs:
         python-version: [3.7, 3.8, 3.9, '3.10', '3.11']
         # 3.12 has no pandas wheel, takes a long time to build
         EXTRA: [false]  # used to force includes to get included
+        ONE: [false]  # used to ask for pandas<2
         include:
           - python-version: 3.7
             os: ubuntu-20.04  # oldest LTS in github actions
             EXTRA: true
+          - python-version: 3.7
+            EXTRA: true
+            ONE: true
           - python-version: '3.11'
             os: ubuntu-20.04
             EXTRA: true
@@ -42,6 +46,11 @@ jobs:
       if: ${{ matrix.python-version >= '3.12' }}
       run: |
         pip install setuptools
+
+    - name: Install pandas<2 if needed
+      if: ${{ matrix.ONE == TRUE }}
+      run: |
+        pip install 'pandas<2'
 
     - name: 'Install dependencies'
       run: |
