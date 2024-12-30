@@ -10,7 +10,7 @@ dataframe, you're supposed to make multiple dataframes and `pd.concat()`
 them instead.
 
 Also, Pandas deprecated `dataframe.append()` in version 1.4 and
-intends to remove it in 2.0.
+removed it in 2.0.
 
 So... helper function? Pandas doesn't have one. Roll your own?
 Ugh. OK then: here's that helper function. It can append around 1
@@ -73,9 +73,3 @@ These inferred categories will override existing types or a `dtypes=` argument.
 
 * Pandas: `df_new = df.append()  # df is not changed`
 * DF_Appender: `dfa_new = dfa.append()  # modifies dfa, and dfa_new == dfa`
-
-### pandas.DataFrame.append will promote types, while DF_Appender is strict 
-
-* Pandas: append `0.1` to an integer column, and the column will be promoted to float
-* DF_Appender: when initialized with `dtypes=` or an existing DataFrame, appending
-`0.1` to an integer column causes `0.1` to be cast to an integer, i.e. `0`.
