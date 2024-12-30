@@ -68,6 +68,7 @@ jobs:
     - name: Install pandas<2 if needed
       if: ${{ matrix.ONE }}
       run: |
+        pip install 'numpy<2'  # or macos screws up
         pip install 'pandas<2'
 
     - name: 'Install dependencies'
