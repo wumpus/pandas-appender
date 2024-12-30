@@ -48,7 +48,7 @@ jobs:
         pip install setuptools
 
     - name: Install pandas<2 if needed
-      if: ${{ matrix.ONE == TRUE }}
+      if: ${{ matrix.ONE }}
       run: |
         pip install 'pandas<2'
 
